@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuck</title>
+</head>
+<body>
+    <script>
+        var data = //!!DATA!!;
+        const col_count = data[0].length
+        data.forEach(row => {
+            const rowDiv = document.createElement('div')
+            rowDiv.style.display = 'flex'
+            rowDiv.style.width = '100vw'
+            let rowCounter = 0
+            row.forEach(cell => {
+                const cellDiv = document.createElement('div')
+                cellDiv.innerHTML = cell
+                cellDiv.style.flex = 1
+                cellDiv.style.color = '!!color!!'
+                cellDiv.style.border = '!!border!!'
+                rowDiv.appendChild(cellDiv)
+                rowCounter += 1
+            });
+            if (rowCounter < col_count) {
+                for (index = rowCounter; index < col_count; index++) {
+                    const cellDiv = document.createElement('div')
+                    cellDiv.innerHTML = ''
+                    cellDiv.style.flex = 1
+                    cellDiv.style.color = '!!color!!'
+                    cellDiv.style.border = '!!border!!'
+                    rowDiv.appendChild(cellDiv)
+                }
+            }
+            document.body.appendChild(rowDiv)
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+node_modules/
+*.xls
+*.xlsx
+index_fucked.html
+example.png
+build/
+example.pdf
+
+.DS_Store
+*.lock
