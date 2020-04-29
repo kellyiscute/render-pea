@@ -57,11 +57,12 @@ const argv = yargs
 let border = 'solid 1px'
 let color = 'black'
 let out = 'out.pdf'
+let sheetname = ''
 
 const shit = () => {
     let file;
     if (!argv.argv._[0]) {
-        console.log('fucked');
+        console.log('Error: no input file');
         return
     } else {
         file = argv.argv._[0]
@@ -80,12 +81,18 @@ const shit = () => {
     if (argv.argv.out) {
         out = argv.argv.out
     }
+    if (argv.argv.name) {
+        sheetname = argv.argv.name
+    }
 
     var workbook = xlsx.readFile(file);
-    json = xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {
+    if (sheetname = '') {
+        sheetname = workbook.SheetNames[0]
+    }
+    json = xlsx.utils.sheet_to_json(workbook.Sheets[sheetname], {
         header: 1
     });
-    html = fs.readFileSync('./index.html').toString()
+    html = fs.readFileSync(path.join(__dirname, 'index.html')).toString()
     html = html.replace('//!!DATA!!', JSON.stringify(json))
     html = html.replace('!!border!!', border)
     html = html.replace('!!border!!', border)

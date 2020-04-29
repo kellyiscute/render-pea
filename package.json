@@ -1,12 +1,14 @@
 {
-  "name": "puppeteer-html2pdf",
+  "name": "render-pea",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "rm -rf build && pkg package.json --out-path build && cp -R ./node_modules/puppeteer/.local-chromium build/chromium",
+    "buildmac": "pkg package.json --out-path build --targets macos && cp -R ./node_modules/puppeteer/.local-chromium build/chromium",
+    "buildwin": "pkg package.json --out-path build --targets win",
+    "buildlinux": "pkg package.json --out-path build --targets linux",
     "postbuild": "cp -R ./node_modules/puppeteer/.local-chromium build/chromium"
   },
   "author": "Kelly",
@@ -20,7 +22,7 @@
   },
   "pkg": {
     "scripts": "index.js",
-    "assets": ["index.html", "index_fucked.html"]
+    "assets": ["index.html"]
   },
   "bin": "index.js"
 }
