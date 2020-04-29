@@ -33,10 +33,9 @@ const fuck = async () => {
     })
     const page = await browser.newPage();
 
-    await page.goto('file://' + process.cwd() + '/index_fucked.html', {
+    await page.goto('file://' + process.cwd() + '/to_html.html', {
         waitUntil: "load"
     })
-    // await page.screenshot({path: 'example.png'});
     await page.pdf({
         path: out,
         format: 'A4',
@@ -58,7 +57,6 @@ const argv = yargs
 let border = 'solid 1px'
 let color = 'black'
 let out = 'out.pdf'
-console.log(puppeteer.executablePath())
 
 const shit = () => {
     let file;
@@ -80,7 +78,7 @@ const shit = () => {
         }
     }
     if (argv.argv.out) {
-        out = argv.out
+        out = argv.argv.out
     }
 
     var workbook = xlsx.readFile(file);
@@ -92,7 +90,7 @@ const shit = () => {
     html = html.replace('!!border!!', border)
     html = html.replace('!!border!!', border)
     html = html.replace('!!color!!', color)
-    fs.writeFileSync(process.cwd() + '/index_fucked.html', html)
+    fs.writeFileSync(process.cwd() + '/to_html.html', html)
 
     fuck(html)
 }
