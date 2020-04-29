@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "buildmac": "pkg package.json --out-path build --targets macos && cp -R ./node_modules/puppeteer/.local-chromium build/chromium",
+    "buildmac": "pkg package.json --out-path build --targets macos && cp -R ./node_modules/puppeteer/.local-chromium/mac-737027/chrome-mac build/",
     "buildwin": "pkg package.json --out-path build --targets win",
     "buildlinux": "pkg package.json --out-path build --targets linux",
-    "postbuild": "cp -R ./node_modules/puppeteer/.local-chromium build/chromium"
+    "postbuild": "cp -R ./node_modules/puppeteer/.local-chromium/mac-737027 build/"
   },
   "author": "Kelly",
   "license": "MIT",
