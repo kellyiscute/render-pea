@@ -7,33 +7,48 @@ const yargs = require('yargs');
 const xlsx = require('xlsx');
 const cheerio = require('cheerio');
 const path = require('path')
+const os = require('os')
 
 //TODO: read config
 
 const fuck = async () => {
     const isPkg = typeof process.pkg !== 'undefined'
-    const chromiumExecutablePath = (isPkg
-    ? puppeteer.executablePath().replace(
-        /^.*?\/node_modules\/puppeteer\/\.local-chromium/,
-        path.join(path.dirname(process.execPath), 'chromium')
+    let chromiumExecutablePath
+    if (os.platform() == 'win32') {
+        console.log(puppeteer.executablePath())
+        chromiumExecutablePath = 'chrome-win\\chrome.exe'
+    } else {
+        chromiumExecutablePath = (isPkg ?
+            puppeteer.executablePath().replace(
+                /^.*?\/node_modules\/puppeteer\/\.local-chromium/,
+                path.join(path.dirname(process.execPath), 'chromium')
+            ) :
+            puppeteer.executablePath()
         )
-    : puppeteer.executablePath()
-    )
-    const browser = await puppeteer.launch({headless: true, executablePath: chromiumExecutablePath})
+    }
+
+    const browser = await puppeteer.launch({
+        headless: true,
+        executablePath: chromiumExecutablePath
+    })
     const page = await browser.newPage();
 
-    await page.goto('file://' + process.cwd() + '/index_fucked.html', {waitUntil: "load"})
+    await page.goto('file://' + process.cwd() + '/index_fucked.html', {
+        waitUntil: "load"
+    })
     // await page.screenshot({path: 'example.png'});
-    await page.pdf({path: out, 
-                    format: 'A4',
-                    margin: {
-                        top: "20px",
-                        left: "20px",
-                        right: "20px",
-                        bottom: "20px"
-                   }});
+    await page.pdf({
+        path: out,
+        format: 'A4',
+        margin: {
+            top: "20px",
+            left: "20px",
+            right: "20px",
+            bottom: "20px"
+        }
+    });
     await browser.close()
-    
+
 };
 
 const argv = yargs
@@ -43,6 +58,7 @@ const argv = yargs
 let border = 'solid 1px'
 let color = 'black'
 let out = 'out.pdf'
+console.log(puppeteer.executablePath())
 
 const shit = () => {
     let file;
@@ -68,9 +84,10 @@ const shit = () => {
     }
 
     var workbook = xlsx.readFile(file);
-    json = xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {header: 1});
+    json = xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {
+        header: 1
+    });
     html = fs.readFileSync('./index.html').toString()
-
     html = html.replace('//!!DATA!!', JSON.stringify(json))
     html = html.replace('!!border!!', border)
     html = html.replace('!!border!!', border)
