@@ -20,8 +20,8 @@ const fuck = async () => {
     } else {
         chromiumExecutablePath = (isPkg ?
             puppeteer.executablePath().replace(
-                /^.*?\/node_modules\/puppeteer\/\.local-chromium/,
-                path.join(path.dirname(process.execPath), 'chromium')
+                /^.*?\/node_modules\/puppeteer\/\.local-chromium\/mac-737027\//,
+                path.join(path.dirname(process.execPath), '')
             ) :
             puppeteer.executablePath()
         )
